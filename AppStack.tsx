@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/home";
 import About from "./screens/about";
 import Contact from "./screens/contact";
@@ -12,32 +12,27 @@ export type RootStackParamList = {
   Contact: undefined;
 };
 
-const Drawer = createDrawerNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export default function App() {
+export default function AppStack() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName={"Home"}>
-        <Drawer.Screen
+      <Stack.Navigator initialRouteName={"Home"}>
+        <Stack.Screen
           name="Home"
           component={Home}
           options={{
-            title: "My dashboard",
-            drawerLabel: "Dashboard label",
-            drawerActiveTintColor: "#333",
-            drawerActiveBackgroundColor: "lightblue",
-            drawerContentStyle: {
-              backgroundColor: "#c6cbef",
-            },
+            title: "Welcome Home",
+            headerTitleStyle: { color: "red" },
           }}
         />
-        <Drawer.Screen
+        <Stack.Screen
           name="About"
           component={About}
           initialParams={{ name: "Guest" }}
         />
-        <Drawer.Screen name="Contact" component={Contact} />
-      </Drawer.Navigator>
+        <Stack.Screen name="Contact" component={Contact} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
